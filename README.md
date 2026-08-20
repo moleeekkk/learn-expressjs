@@ -229,3 +229,85 @@ app.use((err, req, res, next) => {
 The error-handling middleware should generally be placed **after the other routes and middleware** so that errors can be passed to it.
 
 ---
+
+# 📅 20/08/2026 --- Middleware & Template Engines
+
+## 🔄 Middleware
+
+Middleware functions in Express.js have access to the **request (`req`)**, **response (`res`)**, and **next (`next`)** function.
+
+Middleware can be divided into different types.
+
+### 1. Custom Middleware
+
+**Custom middleware** is middleware created by the developer to perform specific tasks during the request-response cycle.
+
+### Example
+
+```javascript
+const customMiddleware = (req, res, next) => {
+    console.log("Custom middleware executed");
+    next();
+};
+
+app.use(customMiddleware);
+```
+
+---
+
+### 2. Inbuilt Middleware
+
+**Inbuilt middleware** is middleware provided by Express.js for common application requirements.
+
+### Example
+
+```javascript
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+```
+
+* `express.json()` parses incoming JSON request data.
+* `express.urlencoded()` parses URL-encoded form data.
+
+---
+
+## 🖼️ Template Engines in Express
+
+**Template engines** allow us to create dynamic HTML pages by combining HTML with data from the server.
+
+Common template engines used with Express.js are:
+
+1. **EJS** — Embedded JavaScript
+2. **Pug** — Formerly known as Jade
+3. **Handlebars** — HBS
+
+---
+
+## 1. EJS — Embedded JavaScript
+
+**EJS (Embedded JavaScript)** is a simple template engine that allows JavaScript code to be embedded inside HTML.
+
+### Installation
+
+```bash
+npm install ejs
+```
+
+### Create `views` Folder
+
+Create a folder named **`views`** in the project directory.
+
+```text
+project/
+│
+├── node_modules/
+├── views/
+│   └── index.ejs
+├── index.js
+├── package.json
+└── package-lock.json
+```
+
+The `views` folder is used to store EJS template files.
+
+---
