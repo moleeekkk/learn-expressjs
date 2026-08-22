@@ -246,8 +246,8 @@ Middleware can be divided into different types.
 
 ```javascript
 const customMiddleware = (req, res, next) => {
-    console.log("Custom middleware executed");
-    next();
+  console.log("Custom middleware executed");
+  next();
 };
 
 app.use(customMiddleware);
@@ -266,8 +266,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 ```
 
-* `express.json()` parses incoming JSON request data.
-* `express.urlencoded()` parses URL-encoded form data.
+- `express.json()` parses incoming JSON request data.
+- `express.urlencoded()` parses URL-encoded form data.
 
 ---
 
@@ -309,5 +309,140 @@ project/
 ```
 
 The `views` folder is used to store EJS template files.
+
+---
+
+# 📅 21/08/2026 --- Pug, Handlebars & Database Setup
+
+## 🐶 2. Pug — Formerly Jade
+
+**Pug** is a template engine for Express.js that allows developers to create dynamic HTML pages using a clean and indentation-based syntax. It was formerly known as **Jade**.
+
+### Installation
+
+```bash
+npm install pug
+```
+
+### Example
+
+```javascript
+const express = require("express");
+
+const app = express();
+
+app.set("view engine", "pug");
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
+```
+
+### Pug Template
+
+Create an `index.pug` file inside the `views` folder.
+
+```pug
+html
+    head
+        title Pug Example
+    body
+        h1 Hello Pug
+        p Welcome to Express.js
+```
+
+---
+
+## 🧩 3. Handlebars — HBS
+
+**Handlebars (HBS)** is a template engine used with Express.js to create dynamic HTML pages using templates and data.
+
+### Installation
+
+```bash
+npm install hbs
+```
+
+### Example
+
+```javascript
+const express = require("express");
+
+const app = express();
+
+app.set("view engine", "hbs");
+
+app.get("/", (req, res) => {
+  res.render("index", {
+    name: "Maulik",
+  });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
+```
+
+### HBS Template
+
+Create an `index.hbs` file inside the `views` folder.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HBS Example</title>
+  </head>
+  <body>
+    <h1>Hello {{name}}</h1>
+  </body>
+</html>
+```
+
+---
+
+## 🗄️ Database Setup
+
+MongoDB can be connected to a Node.js and Express.js application using the **MongoDB driver** or **Mongoose**.
+
+### Installing MongoDB Packages
+
+```bash
+npm install mongodb
+```
+
+```bash
+npm install mongoose
+```
+
+### Installing Dotenv
+
+The **dotenv** package is used to load environment variables from a `.env` file into `process.env`.
+
+```bash
+npm install dotenv
+```
+
+### Project Files
+
+The database setup includes creating configuration files such as `db.txt` and `.env`.
+
+```text
+project/
+│
+├── views/
+│   └── ...
+├── db.txt
+├── .env
+├── index.js
+├── package.json
+└── package-lock.json
+```
+
+The `.env` file is used to store configuration values such as database connection strings and other environment-specific settings.
 
 ---
