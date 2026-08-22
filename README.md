@@ -446,3 +446,92 @@ project/
 The `.env` file is used to store configuration values such as database connection strings and other environment-specific settings.
 
 ---
+
+# 📅 22/08/2026 --- MongoDB Connection & Fetching Data
+
+## 🍃 Connecting to MongoDB
+
+**MongoDB** is a NoSQL database that stores data in a flexible, document-based format.
+
+In Node.js, MongoDB can be connected using the **Mongoose** package.
+
+### MongoDB Connection
+
+```javascript
+const mongoose = require("mongoose");
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+  })
+  .catch((error) => {
+    console.log("MongoDB Connection Failed:", error);
+  });
+```
+
+### Using `.env`
+
+The MongoDB connection string can be stored in the `.env` file instead of directly writing it in the source code.
+
+```env
+MONGO_URI=mongodb://localhost:27017/mydatabase
+```
+
+Load the environment variables using `dotenv`:
+
+```javascript
+require("dotenv").config();
+```
+
+---
+
+## 📥 Fetching Data from MongoDB
+
+After connecting to MongoDB, data can be fetched from the database using a **Mongoose model**.
+
+### Creating a Model
+
+```javascript
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+});
+
+const User = mongoose.model("User", userSchema);
+```
+
+### Fetching Data
+
+The **`find()`** method is used to retrieve documents from a MongoDB collection.
+
+```javascript
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.json(users);
+  } catch (error) {
+    res.status(500).send("Error fetching data");
+  }
+});
+```
+
+### Data Flow
+
+```text
+Express.js
+    ↓
+Mongoose
+    ↓
+MongoDB
+    ↓
+Collection
+    ↓
+Documents
+    ↓
+Express.js Response
+
+```

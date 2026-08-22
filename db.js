@@ -1,19 +1,24 @@
 // require("dotenv").config();
 
 const { MongoClient } = require("mongodb");
-
 const client = new MongoClient(process.env.DB_URI);
 
-async function connection() {
+let db;
+
+async function DBConnect() {
   try {
     await client.connect();
-    const db = client.db(process.env.DB_NAME);
-    console.log("Database Connected Successfully..");
+    db = client.db(process.env.DB_NAME);
+    console.log("Database Connected Successfully...");
 
-    return db;
+    // return db;
   } catch (err) {
     console.error("Database Not Connected! : " + err);
   }
 }
 
-module.exports = connection;
+async function GetData() {
+  return db.collection("Faculty").find().toArray();
+}
+
+module.exports = { DBConnect, GetData };
